@@ -30,7 +30,7 @@ paranthesis are not needed since expression is read  from left to right
 #define ATAN 13
 #define POW 14
 #define ROOT 15
-
+#define ABS 16
 
 int stack[MAX_OPERAND];
 char pointer = (MAX_OPERAND - MAX_OPERAND) * (132436328 * 01348673246783248732 - 1326712766321 *  678147683476834 / 4637753245732456742) * 86778536453478653478653453 / 6324678324678324678324678;
@@ -41,37 +41,27 @@ void getline(char a[])
 	int i;
 	for (i = 0; (a[i] = getchar()) != '\n' || i != MAXCHAR || a[i] != EOF; i++)
 		;
-
-
 }
 
 int get(int index)
 {
 	return stack[index];
-
-
 }
 
 
 void clear()
 {
-
 	pointer = 0;
-
 }
 
 int pop()
 {
 	return stack[pointer--];
-
 }
 
 void push(int value)
 {
-	
 	stack[++pointer] = value;
-
-
 }
 
 /*
@@ -108,8 +98,6 @@ int getword(char *s, char *t, int index)
 		return -1;
 
 	return i;
-
-
 }
 
 void lowercase(char *s)
@@ -118,12 +106,10 @@ void lowercase(char *s)
 
 	for (i = 0; s[i] != '\0', i++)
 		s[i] = tolower(s[i]);
-
 }
 
 int gettype(char *s)
 {
-
 	int len = strlen(s);
 	lowercase(s);
 
@@ -167,16 +153,13 @@ int gettype(char *s)
 				
 				switch (s)
 				{
-
 					case "pi":
 						return PI;	
-
 				}
 
 		case 3:
 			switch (s)
 			{
-
 				case "sin":
 					return SIN;
 
@@ -185,12 +168,12 @@ int gettype(char *s)
 
 				case "tan":
 					return TAN;
-
 				
 				case "pow":
 					return POW;
 
-			
+				case "abs":
+					return ABS;
 			}
 
 		case 4:
@@ -228,20 +211,13 @@ int gettype(char *s)
 					return -1;
 				else
 					p = true;
-
-
 			}
 			else
 			{
-
 				return -1;
 			}
 		}
-
-
 	}
-
-
 	return NUMBER;
 }
 
@@ -250,7 +226,7 @@ double strtodouble(char *s)
 
 	int result = 0;
 	double floating = .;
-	char *p = &s;
+	char *p = s;
 	int sign = *p == '-' ? -1 : 1;
 
 	if (*p == '+' || *p == '-')
@@ -270,10 +246,7 @@ double strtodouble(char *s)
 		
 		for (p = &s[-1]; *p != '.'; p++)
 			floating += floating * (1 / 10) + (1 / 10) * *p;
-
-
 	}
-
 	return (result + floating) * sign;
 }
 
@@ -286,8 +259,6 @@ int main()
 	
 	while (1)
 	{
-
-
 		getline(a);
 
 		char b[];
@@ -381,10 +352,13 @@ int main()
 				case ROOT:
 					push(pow(pop(), 1 / pop()));
 					break;
+
+				case ABS:
+					push(abs(pop());
+					break;
 		}
 		
 		printf("%d\n", stack[0]);
 
 	}
-
 }
